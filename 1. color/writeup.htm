@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0061)http://graphics.cs.cmu.edu/courses/15-463/2013_fall/hw/proj1/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>15-463: Computational Photography</title>
+<link rel="StyleSheet" href="./writeup_files/style.css" type="text/css" media="all">
+<style type="text/css"></style></head>
+<body>
+<h1>
+<img src="./writeup_files/scslogo.gif" alt="scs logo">
+Programming Project #1 (<tt>proj1</tt>)<br>
+<a href="http://graphics.cs.cmu.edu/courses/15-463/2013_fall/">15-463: Computational Photography</a>
+</h1>
+<h2>
+<img src="./writeup_files/image001.jpg" alt="Red-Green-Blue Example"><br>
+Images of the Russian Empire:<br>
+<i>Colorizing the <a href="http://www.loc.gov/exhibits/empire/gorskii.html">Prokudin-Gorskii</a> photo collection</i><br>
+<b>Due Date: 11:59pm on Monday, September 16, 2013</b>
+</h2>
+<h3>Background</h3>
+<p>
+<a href="http://en.wikipedia.org/wiki/Prokudin-Gorskii">Sergei Mikhailovich Prokudin-Gorskii</a> (1863-1944)
+[&#1057;&#1077;&#1088;&#1075;&#1077;&#1081; &#1052;&#1080;&#1093;&#1072;&#1081;&#1083;&#1086;&#1074;&#1080;&#1095; &#1055;&#1088;&#1086;&#1082;&#1091;&#1076;&#1080;&#1085;-&#1043;&#1086;&#1088;&#1089;&#1082;&#1080;&#1081;, to his Russian friends]
+was a man well ahead of his time.
+Convinced, as early as 1907, that color photography was the wave of the future, he won Tzar's special permission to travel across the vast Russian Empire and take color photographs of everything he saw.
+And he really photographed everything:  people, buildings, landscapes, railroads, bridges... thousands of color pictures!
+His idea was simple: record three exposures of every scene onto a glass plate using a red, a green, and a blue filter.
+Never mind that there was no way to print color photographs until much later -- he envisioned special projectors to be installed in "multimedia" classrooms all across Russia where the children would be able to learn about their vast country.
+Alas, his plans never materialized: he left Russia in 1918, right after the revolution, never to return again.
+Luckily, his RGB glass plate negatives, capturing the last years of the Russian Empire, survived and were purchased in 1948 by the Library of Congress.
+The LoC has recently digitized the negatives and made them available on-line.
+</p>
+<h3>Overview</h3>
+<p>
+The goal of this assignment is to take the digitized Prokudin-Gorskii glass plate images and, using image processing techniques, automatically produce a color image with as few visual artifacts as possible.
+In order to do this, you will need to extract the three color channel images, place them on top of each other, and align them so that they form a single RGB color image.
+Some starter code is available <a href="http://graphics.cs.cmu.edu/courses/15-463/2013_fall/hw/proj1/data/colorize_skel.m">here</a>; do not feel compelled to use it.
+We will assume that a simple x,y translation model is sufficient for proper alignment.
+However, the full-size glass plate images are very large, so your alignment procedure will need to be relatively fast and efficient.
+</p>
+<h3>Details</h3>
+<img src="./writeup_files/image003.jpg" alt="example negative" style="float:right;">
+<p>
+A few of the digitized glass plate images (both hi-res and low-res versions) will be placed in the following directory (note that the filter order from top to bottom is BGR, not RGB!): <a href="http://graphics.cs.cmu.edu/courses/15-463/2013_fall/hw/proj1/data/images.tar">data/</a>.
+Your program will take a glass plate image as input and produce a single color image as output.
+The program should divide the image into three equal parts and align the second and the third parts (G and R) to the first (B).
+For each image, you will need to print the (x,y) displacement vector that was used to align the parts.
+</p>
+<p>
+The easiest way to align the parts is to exhaustively search over a window of possible displacements (say [-15,15] pixels), score each one using some image matching metric, and take the displacement with the best score.
+There is a number of possible metrics that one could use to score how well the images match.
+The simplest one is just the L2 norm also known as the Sum of Squared Differences (SSD) distance which is simply <tt>sum(sum((image1-image2).^2))</tt>.
+Another is normalized cross-correlation (NCC), which is simply a dot product between two normalized vectors: (<tt>image1./||image1||</tt> and <tt>image2./||image2||</tt>).
+Note that in this particular case, the images to be matched do not actually have the same brightness values (they are different color channels), so a cleverer metric might work better.
+</p>
+<p>
+Exhaustive search will become prohibitively expensive if the pixel displacement is too large (which will be the case for high-resolution glass plate scans).  In this case, you will need to implement a faster search procedure such as an image pyramid.  An image pyramid represents the image at multiple scales (usually scaled by a factor of 2) and the processing is done sequentially starting from the coarsest scale (smallest image) and going down the pyramid, updating your estimate as you go. It is very easy to implement by adding recursive calls to your original single-scale implementation.
+</p>
+<p>
+Your job will be to implement an algorithm that, given a 3-channel image, produces a color image as output.  Implement a simple single-scale version first, using for loops, searching over a user-specified window of displacements. The above directory has skeleton Matlab code that will help you get started. Next, add a coarse-to-fine pyramid speedup to handle large images.
+</p>
+<h3>Bells &amp; Whistles (Extra Credit)</h3>
+<p>
+Although the color images resulting from this automatic procedure will often look strikingly real, they are still a far cry from the manually restored versions available on the LoC website and from other professional photographers. Of course, each such photograph takes days of painstaking Photoshop work, adjusting the color levels, removing the blemishes, adding contrast, etc.  Can we make some of these adjustments automatically, without the human in the loop?   Feel free to come up with your own approaches or talk to me about your ideas.  There is no right answer here -- just try out things and see what works.  For example, the borders of the photograph will have strange colors since the three channels won't exactly align.  See if you can devise an automatic way of cropping the border to get rid of the bad stuff.  One possible idea is that the information in the good parts of the image generally agrees across the color channels, whereas at borders it does not.
+</p>
+<h3>Deliverables</h3>
+For this project you must turn in both your code and a project webpage,
+by copying them into afs directories as described <a href="http://graphics.cs.cmu.edu/courses/15-463/2013_fall/hw/submitting.html">here</a>.
+<ul>
+<li>Please copy all the code you used to create your results, along with a README describing the contents of each code file, into your <tt>proj1/code</tt> folder.</li>
+<li>Additionally, place a web page in your <tt>proj1/www</tt> folder. The web page should contain:
+	<ul>
+	<li>Text giving a brief overview of the project, and text describing your approach. If you ran into problems on images, describe how you tried to solve them. The website does not need to be pretty; you just need to explain what you did.</li>
+	<li>The result of your algorithm on <b>all</b> of our <a href="http://graphics.cs.cmu.edu/courses/15-463/2013_fall/hw/proj1/data/images.tar">example images</a>. List the offsets you calculated. For the large tif images, display a jpeg image with a link to your full size tif.</li>
+	<li>The result of your algorithm on a few examples of your own choosing, downloaded from the Prokudin-Gorskii collection.
+	</li><li>If your algorithm failed to align any image, provide a brief explanation of why.</li>
+	<li>Describe any bells and whistles you implemented. For maximum credit, show before and after images.</li>
+	</ul>
+</li>
+</ul>
+<p>
+This assignment will be graded out of <b>100</b> points, as follows:
+</p>
+<ul>
+<li><b>60 points</b> (<b>45</b> for those in the grad version of the class) for a single-scale implementation with successful results on low-res images.</li>
+<li><b>40 points</b> for a multiscale pyramid version that works on the large images.</li>
+<li>Up to <b>10 points</b> for bells &amp; whistles explicitly mentioned
+above.</li>
+<li>Up to <b>5 points</b> for bells &amp; whistles you come up with on
+your own (and OK with course staff).</li>
+</ul>
+
+
+</body></html>
