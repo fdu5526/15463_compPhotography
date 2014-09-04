@@ -1,7 +1,7 @@
 % 15-463: Assignment 1, starter Matlab code
 
 % name of the input file
-imname = '00270v.jpg';
+imname = 'D:\15463_data\1.data\00106v.jpg';
 
 % read in the image
 fullim = imread(imname);
@@ -16,19 +16,22 @@ B = fullim(1:height,:);
 G = fullim(height+1:height*2,:);
 R = fullim(height*2+1:height*3,:);
 
-% Align the images
-% Functions that might be useful to you for aligning the images include: 
-% "circshift", "sum", and "imresize" (for multiscale)
-%%%%%aG = align(G,B);
-%%%%%aR = align(R,B);
+% Align the imagess
+G = align(G,B);
+R = align(R,B);
 
 
-% open figure
-%% figure(1);
 
 % create a color image (3D array)
 % ... use the "cat" command
 % show the resulting image
 % ... use the "imshow" command
 % save result image
-%% imwrite(colorim,['result-' imname]);
+colorim = cat(3, R, G, B);
+imshow(colorim)
+%imwrite(colorim,['output.jpg']);
+
+
+
+
+
