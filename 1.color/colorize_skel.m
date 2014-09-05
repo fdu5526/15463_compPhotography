@@ -24,11 +24,13 @@ R = align(R,B);
 
 % create a color image (3D array)
 % ... use the "cat" command
+colorim = cat(3, R, G, B);
+
 % show the resulting image
 % ... use the "imshow" command
+imshow(colorim);
+
 % save result image
-colorim = cat(3, R, G, B);
-imshow(colorim)
 %imwrite(colorim,['output.jpg']);
 
 
