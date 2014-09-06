@@ -1,7 +1,7 @@
 % 15-463: Assignment 1, starter Matlab code
 
 % name of the input file
-imname = 'D:\15463_data\1.data\00106v.jpg';
+imname = 'D:\15463_data\1.data\00029u.tif';
 
 % read in the image
 fullim = imread(imname);
@@ -17,9 +17,8 @@ G = fullim(height+1:height*2,:);
 R = fullim(height*2+1:height*3,:);
 
 % Align the imagess
-G = align(G,B);
-R = align(R,B);
-
+G = circshift(G, align(G,B));
+R = circshift(R, align(R,B));
 
 
 % create a color image (3D array)
