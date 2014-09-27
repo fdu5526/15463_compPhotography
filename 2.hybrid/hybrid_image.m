@@ -1,9 +1,9 @@
 close all; % closes all figures
 
 % read images and convert to single format
-im1 = im2single(imread('./DerekPicture.jpg'));
-im2 = im2single(imread('./nutmeg.jpg'));
-im1 = rgb2gray(im1); % convert to grayscale
+im1 = im2single(imread('womanLaugh.jpg'));
+im2 = im2single(imread('einsteinLaugh.jpg'));
+%im1 = rgb2gray(im1); % convert to grayscale
 im2 = rgb2gray(im2);
 
 % use this if you want to align the two images (e.g., by the eyes) and crop
@@ -21,6 +21,9 @@ cutoff_high = arbitrary_value;
 im12 = hybridImage(im1, im2, cutoff_low, cutoff_high);
 
 imshow(im12)
+
+% for fourier transform
+%imagesc(log(abs(fftshift(fft2(im12)))))
 
 %% Crop resulting image (optional)
 %figure(1), hold off, imagesc(im12), axis image, colormap gray

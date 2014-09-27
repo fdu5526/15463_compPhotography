@@ -1,0 +1,237 @@
+<!-- =============================================== -->
+<!-- =                                             = -->
+<!-- =                Keyners	                   = -->
+<!-- =                                             = -->
+<!-- =          http://keyners.com/	               = -->
+<!-- =============================================== -->
+
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+	
+	<!-- fonts from google -->
+	<link href='http://fonts.googleapis.com/css?family=Lato|Open+Sans' rel='stylesheet' type='text/css'>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Dave Yan - proj2</title>
+	<meta name="description" content="">
+	<meta name="author" content=" Made by Keyners">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- CSS
+  ================================================== -->
+  	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/skeleton.css">
+	<link rel="stylesheet" href="css/layout.css">
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+	<script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+	<script type="text/javascript">
+		$(document).ready(function() {
+				$("a[rel=example_group]").fancybox({
+				'transitionIn'		: 'none',
+				'transitionOut'		: 'none',
+				'titlePosition' 	: 'outside',
+				'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+					return '';
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+
+
+	<header>			
+		<div class='container'>
+			<div class='slogan'>
+				<div class='ten columns'>
+					<h1>Project 2</h1>
+						<h4>Dave Yan</h4>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<div class='container'>
+		<div class='fourteen columns'>
+			<h4>Overview</h4>
+			<div class='clear'></div>
+			<p>We aim to create hybrid images, which are composed of 2 different images, one for high frequency and one for low. Up close, high frequency images dominate, but from far away the low does instead.</p>
+		</div>
+
+		<div class='clear'></div>
+		<div class='clear'></div>
+		<div class='fourteen columns'>
+			<h4>Approach</h4>
+			<div class='clear'></div>
+			<p>The input is 2 images, one for low frequency and one for high frequency. I applied Gaussian filter to first and second image, and subtracted the second image from the original second image. The width and height of the Gaussian filter is 1/20 of the images' height, and the sigma is 1/150 of the images' height.</p>
+		</div>
+
+		<div class='clear'></div>
+		<div class='clear'></div>
+		<div class='fourteen columns'>
+			<h4>Bells and Whistles</h4>
+			<div class='clear'></div>
+			<p>
+				I added color to my output. However, I only used color on the low-frequency component. Using color on high-frequency components mostly made no difference, but on some parts of images it created extremely brightly colored artifacts, which made the outputs look worse, so I ended up taking the greyscale of the high frequency images.
+			</p>
+		</div>
+		
+		<div class='clear'></div>
+		<div class='clear'></div>
+		<div class='clear'></div>
+		<div class='clear'></div>
+		
+
+	<div class='fourteen columns'>
+		<h4>Favorite Result</h4>
+			<div class='clear'></div>
+			<div class='four columns'> <h3>Low Frequency<h3> </div>
+			<div class='four columns'> <h3>High Frequency<h3> </div>
+			<div class='four columns'> <h3>Output<h3> </div>
+			<div class='clear'></div>
+
+			<div class='four columns'>
+			<a rel="example_group" href='womanLaugh.jpg'><img src='womanLaugh.jpg' width=240></a>
+			</div>	
+			<div class='four columns'>
+				<a rel="example_group" href='einsteinLaugh.jpg'><img src='einsteinLaugh.jpg' width=240></a>
+			</div>
+			<div class='four columns'>
+				<a rel="example_group" href='output3.jpg'><img src='output3.jpg' width=240></a>
+			</div>
+			<div class='clear'></div>
+
+			<div class='fourteen columns'>
+				<p>
+				The reason why this works is because the 2 facial angles match really well, while the 2 faces still differ by a lot.
+			</p>
+			</div>
+
+	</div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+
+	<div class='fourteen columns'>
+		<h4>Other Results</h4>
+		<div class='clear'></div>
+	</div>
+
+		<div class='four columns'> <h3>Low Frequency<h3> </div>
+		<div class='four columns'> <h3>High Frequency<h3> </div>
+		<div class='four columns'> <h3>Output<h3> </div>
+		<div class='clear'></div>
+		
+
+		<div class='four columns'>
+			<a rel="example_group" href='DerekPicture.jpg'><img src='DerekPicture.jpg' width=240></a>
+		</div>
+		<div class='four columns'>
+			<a rel="example_group" href='nutmeg.jpg'><img src='nutmeg.jpg' width=240></a>
+		</div>
+		<div class='four columns'>
+			<a rel="example_group" href='output1.jpg'><img src='output1.jpg' width=240></a>
+		</div>
+		<div class='clear'></div>
+
+		<div class='four columns'>
+			<a rel="example_group" href='mad-eye-moody.jpg'><img src='mad-eye-moody.jpg' width=240></a>
+		</div>
+		<div class='four columns'>
+			<a rel="example_group" href='Barty_Crouch_Jr.jpg'><img src='Barty_Crouch_Jr.jpg' width=240></a>
+		</div>
+		<div class='four columns'>
+			<a rel="example_group" href='output2.jpg'><img src='output2.jpg' width=240></a>
+		</div>
+		<div class='clear'></div>
+
+		<div class='four columns'>
+			<a rel="example_group" href='snape.jpg'><img src='snape.jpg' width=240></a>
+		</div>
+		<div class='four columns'>
+			<a rel="example_group" href='eggplant.jpg'><img src='eggplant.jpg' width=240> </a>
+		</div>
+		<div class='four columns'>
+			<a rel="example_group" href='output4.jpg'><img src='output4.jpg' width=240></a>
+		</div>
+		<div class='clear'></div>
+
+		<div class='four columns'>
+			<a rel="example_group" href='tree.jpg'><img src='tree.jpg' width=240></a>
+		</div>
+		<div class='four columns'>
+			<a rel="example_group" href='brocolli.jpg'><img src='brocolli.jpg' width=240></a>
+		</div>
+		<div class='four columns'>
+			<a rel="example_group" href='output5.jpg'><img src='output5.jpg' width=240></a>
+		</div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+
+		<div class='fourteen columns'>
+		<h4>Failed Result</h4>
+			<div class='clear'></div>
+			<div class='four columns'> <h3>Low Frequency<h3> </div>
+			<div class='four columns'> <h3>High Frequency<h3> </div>
+			<div class='four columns'> <h3>Output<h3> </div>
+			<div class='clear'></div>
+
+			<div class='four columns'>
+			<a rel="example_group" href='Barty_Crouch_Jr.jpg'><img src='Barty_Crouch_Jr.jpg' width=240></a>
+			</div>	
+			<div class='four columns'>
+				<a rel="example_group" href='mad-eye-moody.jpg'><img src='mad-eye-moody.jpg' width=240></a>
+			</div>
+			<div class='four columns'>
+				<a rel="example_group" href='failoutput.jpg'><img src='failoutput.jpg' width=240></a>
+			</div>
+			<div class='clear'></div>
+
+			<div class='fourteen columns'>
+				<p>
+				When I swap the high frequency and low frequency images for my previous results, I realized they ended up not looking as good. It seems that using a brighter-colored image as the low frequency and the duller picture as the high frequency produces the best results.
+			</p>
+			</div>
+
+			<div class='clear'></div>
+			<div class='clear'></div>
+			<div class='clear'></div>
+			<div class='clear'></div>
+			<div class='clear'></div>
+		</div>
+		
+	
+	<script type="text/javascript">
+		var toper = $('a#top');
+
+
+		$(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+                toper.fadeIn( 200 );
+            } else {
+                toper.fadeOut( 200 );
+            }
+        });
+
+         toper.click(function(){
+        	$('html, body').animate({scrollTop:0}, 500);	        	
+        	return false;
+    	}); 
+	</script>
+</body>
+</html>
