@@ -81,10 +81,9 @@ def findVerticalSeam(gradientList, width, height):
 
 
 
-
+############################# this is for args #############################
 fileName = sys.argv[1]
 amountToCarve = int(sys.argv[2])
-
 removeHorizontalSeams = True
 
 try:
