@@ -1,6 +1,6 @@
 function [output] = morph(im1, im2, im1_pts, im2_pts, tri, warp_frac, dissolve_frac)
 	computeAffine([],[]);
-	output = [];
+	output = 0.5 * im1 + 0.5 * im2;
 
 
 
