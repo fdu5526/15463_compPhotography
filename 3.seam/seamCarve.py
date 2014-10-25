@@ -1,4 +1,11 @@
 #!/usr/bin/python
+###################
+# Written by Dave Yan
+# usage: ./seamCarve.py [image name] [number of seams to remove] [horizonal?] [output name]
+# ex: ./seamCarve.py image.jpg 50 h output.jpg     <--- removes 50 horizontal seams
+# ex: ./seamCarve.py image.jpg 10 v output.jpg     <--- removes 10 vertical seams
+###################
+
 
 import os, sys, math
 from PIL import Image
@@ -84,7 +91,11 @@ def findVerticalSeam(gradientList, width, height):
 ############################# this is for args #############################
 fileName = sys.argv[1]
 amountToCarve = int(sys.argv[2])
-removeHorizontalSeams = True
+
+removeHorizontalSeams = False
+if(sys.argv[3] is 'h'):
+	removeHorizontalSeams = True
+outputName = sys.argv[4]
 
 try:
 	# load the image
@@ -101,16 +112,16 @@ try:
 		pixels = newPixels
 		w,h = h,w
 
+	
 
 	for i in range(0,amountToCarve):
 		print (str(100*i/amountToCarve) + "%")
-
+		
 		# precompute gradient at matrix
 		gradientList = generateGradients(w,h,pixels)
+		
 		# find the seam
 		seam = findVerticalSeam(gradientList, w, h)
-
-		#print(str(len(seam)) + " " + str(h))
 
 		# remove the seam
 		for s in seam:
@@ -118,20 +129,19 @@ try:
 		w = w - 1
 		
 
+	# transpose for horizontal removal
 	if(removeHorizontalSeams):
-		# transpose for horizontal removal
-		if(removeHorizontalSeams):
-			newPixels = []
-			for x in ( (range(0,w))):
-				for y in (reversed (range(0,h))):
-					newPixels.append(pixels[y*w + x])
-			pixels = newPixels
-			w,h = h,w
+		newPixels = []
+		for x in ( (range(0,w))):
+			for y in (reversed (range(0,h))):
+				newPixels.append(pixels[y*w + x])
+		pixels = newPixels
+		w,h = h,w
 
 	# save the image
 	im2 = Image.new(im.mode, (w, h))
 	im2.putdata(pixels)
-	im2.save(fileName+"-test.jpg")
+	im2.save(outputName)
 		
 
     
