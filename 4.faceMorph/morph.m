@@ -1,6 +1,9 @@
-user_name1 = 'syan';
-user_name2 = 'tesker';
-im1 = imread([ 'pictures\' user_name1 '.JPG' ]);
-im2 = imread([ 'pictures\' user_name2 '.JPG' ]);
+function [output] = morph(im1, im2, im1_pts, im2_pts, tri, warp_frac, dissolve_frac)
+	computeAffine([],[]);
+	output = [];
 
-imshow(im2)
+
+
+
+function [output] = computeAffine(tri1_pts,tri2_pts)
+	output = [];
