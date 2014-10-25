@@ -10,10 +10,10 @@ im2_pts = importdata([ 'data\' user_name2 '.txt' ]);
 
 % delauney points, get middle, compute
 
-average_pts = 0.5*(im1_pts + im2_pts)
-computeDelaunay(average_pts)
+average_pts = 0.5*(im1_pts + im2_pts);
+triangles = delaunay(average_pts(:, 1), average_pts(:, 2));
 
-morphed_im = morph(im1, im2, im1_pts, im2_pts, [], 0.5, 0.5);
+morphed_im = morph(im1, im2, im1_pts, im2_pts, triangles, 0.5, 0.5);
 
-size(im1_pts)
+
 %imshow(morphed_im)
