@@ -3,6 +3,8 @@ function [output] = morph(im1, im2, im1_pts, im2_pts, tri, warp_frac, dissolve_f
 	im1_2 = im1;
 	im2_2 = im2;
 
+
+	% TODO get list of affine transforms here
 	for i = 1:(size(tri,1))
 		im1_tri = [im1_pts(tri(i,1), 1), 
 							 im1_pts(tri(i,1), 2),
@@ -21,11 +23,15 @@ function [output] = morph(im1, im2, im1_pts, im2_pts, tri, warp_frac, dissolve_f
 
 		affine1 = computeAffine(im1_tri, average_tri);
 		affine2 = computeAffine(im2_tri, average_tri);
-		
-		
+			
 		% mytsearch, interp2
 
 	end
+
+	% TODO for each point in image, get which triangle it is in, affine transform
+	% want to use average im points here
+	% apply inverse affine transform, get that point
+	mytsearch(im1_pts(:,1),im1_pts(:,2),tri,[],[]);
 
 
 	output = (1 - dissolve_frac) * im1_2 + dissolve_frac * im2_2;
