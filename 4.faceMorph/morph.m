@@ -18,15 +18,26 @@ function [output] = morph(im1, im2, im1_pts, im2_pts, tri, warp_frac, dissolve_f
 							 im2_pts(tri(i,2), 2),
 							 im2_pts(tri(i,3), 1), 
 							 im2_pts(tri(i,3), 2)];
-	 average_tri = [average_pts(tri(i,1), 1), 
-								  average_pts(tri(i,1), 2),
-								  average_pts(tri(i,2), 1), 
-								  average_pts(tri(i,2), 2),
-								  average_pts(tri(i,3), 1), 
-								  average_pts(tri(i,3), 2)];
+	 	average_tri = [average_pts(tri(i,1), 1), 
+								 	 average_pts(tri(i,1), 2),
+								   average_pts(tri(i,2), 1), 
+								   average_pts(tri(i,2), 2),
+								   average_pts(tri(i,3), 1), 
+								   average_pts(tri(i,3), 2)];
 
-		affines1{i} = computeAffine(average_tri, im1_tri);
-		affines2{i} = computeAffine(average_tri, im2_tri);
+
+	 	affine = computeAffine(average_tri, im1_tri);
+		affine = [[affine(1), affine(2), affine(3)],
+							[affine(4), affine(5), affine(6)],
+								0,0,1];
+		affines1{i} = affine;
+
+
+	 	affine = computeAffine(average_tri, im2_tri);
+		affine = [[affine(1), affine(2), affine(3)],
+							[affine(4), affine(5), affine(6)],
+								0,0,1];
+		affines2{i} = affine;
 	end
 
 	% apply inverse interpolation
@@ -34,8 +45,7 @@ function [output] = morph(im1, im2, im1_pts, im2_pts, tri, warp_frac, dissolve_f
 	im2_2 = computeWarp(im2, average_pts, tri, affines2);
 
 	% cross correlate, return
-	output = im1_2;
-	%output = (1 - dissolve_frac) * im1_2 + dissolve_frac * im2_2;
+	output = (1 - dissolve_frac) * im1_2 + dissolve_frac * im2_2;
 
 
 
@@ -45,34 +55,27 @@ function [output] = computeWarp(im, average_pts, tri, affines)
 	% want to use average im points here
 	% apply inverse affine transform, get that point
 
-	pointPairs = meshgrid(1:size(im,1),1:size(im,2));
-	triIndices = mytsearch(average_pts(:,1),average_pts(:,2),tri,pointPairs,pointPairs);
+	[X,Y] = meshgrid(1:size(im,1),1:size(im,2));
+	triIndices = mytsearch(average_pts(:,1),average_pts(:,2),tri,Y,X);
 	
 
 	imResult = zeros(size(im));
+
 	for y = 1:size(im, 1)
 		for x = 1:size(im, 2)
 
-
 			% get the triangle's affine transformation
 			affine = affines{triIndices(x,y)};
-			affine = [[affine(1), affine(2), affine(3)],
-								[affine(4), affine(5), affine(6)],
-								0,0,1];
 			
 			p = [x,
 					 y,
 					 1];
 			origp = affine * p;
-			origp = origp / (origp(3));
+			origp = origp / origp(3);
 
-			p
-			origp
 			% TODO want to interp2 here
-			%ny = min(max(1, uint32(origp(2))), size(im,1));
-			%nx = min(max(1, uint32(origp(1))), size(im,1));
-			ny = uint32(origp(2));
-			nx = uint32(origp(1));
+			ny = min(max(1, uint32(origp(2))), size(im,1));
+			nx = min(max(1, uint32(origp(1))), size(im,2));
 			imResult(y,x,:) = im(ny, nx,:);
 
 		end
