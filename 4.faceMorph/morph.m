@@ -30,15 +30,16 @@ function [output] = morph(im1, im2, im1_pts, im2_pts, tri, warp_frac, dissolve_f
 	end
 
 	% apply inverse interpolation
-	im1_2 = computeWarp(im1, im1_pts, average_pts, tri, affines1);
-	im2_2 = computeWarp(im2, im2_pts, average_pts, tri, affines2);
+	im1_2 = computeWarp(im1, average_pts, tri, affines1);
+	im2_2 = computeWarp(im2, average_pts, tri, affines2);
 
 	% cross correlate, return
-	output = (1 - dissolve_frac) * im1_2 + dissolve_frac * im2_2;
+	output = im1_2;
+	%output = (1 - dissolve_frac) * im1_2 + dissolve_frac * im2_2;
 
 
 
-function [output] = computeWarp(im, im_pts, average_pts, tri, affines)
+function [output] = computeWarp(im, average_pts, tri, affines)
 
 	% for each point in image, get which triangle it is in, affine transform
 	% want to use average im points here
@@ -52,24 +53,26 @@ function [output] = computeWarp(im, im_pts, average_pts, tri, affines)
 	for y = 1:size(im, 1)
 		for x = 1:size(im, 2)
 
-			% get triangle the average point is in
-			if isnan(triIndices(x,y))
-				imResult(y,x,:) = im(y,x,:);
-				continue
-			end
+
 			% get the triangle's affine transformation
 			affine = affines{triIndices(x,y)};
 			affine = [[affine(1), affine(2), affine(3)],
-								[affine(4), affine(5), affine(6)]];
+								[affine(4), affine(5), affine(6)],
+								0,0,1];
 			
 			p = [x,
 					 y,
 					 1];
 			origp = affine * p;
+			origp = origp / (origp(3));
 
+			p
+			origp
 			% TODO want to interp2 here
-			ny = min(max(1, uint32(origp(2))), size(im,1));
-			nx = min(max(1, uint32(origp(1))), size(im,1));
+			%ny = min(max(1, uint32(origp(2))), size(im,1));
+			%nx = min(max(1, uint32(origp(1))), size(im,1));
+			ny = uint32(origp(2));
+			nx = uint32(origp(1));
 			imResult(y,x,:) = im(ny, nx,:);
 
 		end
@@ -77,13 +80,18 @@ function [output] = computeWarp(im, im_pts, average_pts, tri, affines)
 
 	output = imResult;
 
-
-
 function [output] = computeAffine(tri1_pts,tri2_pts)
-	A = [[tri1_pts(1),tri1_pts(2), 1, 0, 0, 0],
-			 [0, 0, 0, tri1_pts(1),tri1_pts(2), 1],
-			 [tri1_pts(3),tri1_pts(4), 1, 0, 0, 0],
-			 [0, 0, 0, tri1_pts(3),tri1_pts(4), 1],
-			 [tri1_pts(5),tri1_pts(6), 1, 0, 0, 0],
-			 [0, 0, 0, tri1_pts(5),tri1_pts(6), 1]];
+	x1 = tri1_pts(1);
+	y1 = tri1_pts(2);
+	x2 = tri1_pts(3);
+	y2 = tri1_pts(4);
+	x3 = tri1_pts(5);
+	y3 = tri1_pts(6);
+
+	A = [[x1,y1, 1, 0, 0, 0],
+			 [0, 0, 0, x1,y1, 1],
+			 [x2,y2, 1, 0, 0, 0],
+			 [0, 0, 0, x2,y2, 1],
+			 [x3,y3, 1, 0, 0, 0],
+			 [0, 0, 0, x3,y3, 1]];
 	output = inv(A) * tri2_pts;
