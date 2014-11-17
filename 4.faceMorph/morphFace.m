@@ -24,10 +24,10 @@ im2_pts = [im2_pts,
 average_pts = 0.5*(im1_pts + im2_pts);
 triangles = delaunay(average_pts(:, 1), average_pts(:, 2));
 
-frameCount = 5;
-for i = 1:frameCount
+frameCount = 60;
+for i = 0:frameCount
 	morphed_im = morph(im1, im2, im1_pts, im2_pts, triangles, i/frameCount, i/frameCount);
-	imwrite(morphed_im, [ 'blah' int2str(i) '.JPG' ]);
+	imwrite(morphed_im, [ 'output/morph' sprintf('%02d',i) '.JPG' ]);
 	i
 end
 

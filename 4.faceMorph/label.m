@@ -1,6 +1,6 @@
 user_name = 'syan';
 
-im = imread([ 'data\' user_name '.JPG' ]);
+im = imread([ 'pictures\' user_name '.JPG' ]);
 imshow(im);
 
 uiwait(msgbox({ 'Left click to place the next point', ...
