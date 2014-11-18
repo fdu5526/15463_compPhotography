@@ -1,26 +1,27 @@
 function [imwarped] = warpImage(im,H)
 	
+	invH = inv(H);
+
 	sizeIm = size(im);
-	imNew = zeros(sizeIm(1), sizeIm(2), sizeIm(3));
+	imCoords = zeros(sizeIm(1), sizeIm(2), sizeIm(3));
 
 	for y = 1:sizeIm(1)
 		for x = 1:sizeIm(2)
+
 			p = [x,
 					 y,
 					 1];
-			newP = p;
-			newP = newP / newP(3);
+			origp = invH * p;
+			origp = origp / origp(3);
 
-			nx = round(newP(1));
-			ny = round(newP(2));
-
-			% TODO make this real
-			%if (sizeIm(2) >= nx & nx >= 1 & sizeIm(1) >= nx & nx >= 1)
-				imNew(ny, nx, :) = im(y ,x ,:);
-			%end
-
+			imCoords(y, x, :) = origp;
 		end
 	end
 
 
-	imwarped = 1/256 * imNew;
+	r = interp2(1:sizeIm(2), 1:sizeIm(1), im(:,:,1), imCoords(:,:,1), imCoords(:,:,2));
+	g = interp2(1:sizeIm(2), 1:sizeIm(1), im(:,:,2), imCoords(:,:,1), imCoords(:,:,2));
+	b = interp2(1:sizeIm(2), 1:sizeIm(1), im(:,:,3), imCoords(:,:,1), imCoords(:,:,2));
+
+
+	imwarped = cat(3, r, g, b);

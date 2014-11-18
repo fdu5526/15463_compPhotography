@@ -1,5 +1,5 @@
-im1 = imread('images/lib1.JPG');
-im2 = imread('images/lib2.JPG');
+im1 = im2double(imread('images/lib1.JPG'));
+im2 = im2double(imread('images/lib2.JPG'));
 
 im1_pts = [528,166;
 					 317,135;
@@ -16,7 +16,7 @@ im2_pts = [318,132;
 					];
 
 H = computeH(im1_pts,im2_pts);
-imwarped = warpImage(im1,H);
+imwarped = warpImage(im2,H);
 
 
 imshow(imwarped);
