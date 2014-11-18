@@ -3,8 +3,7 @@ function [imwarped] = warpImage(im,H)
 	invH = inv(H);
 
 	sizeIm = size(im);
-	%newSize = computeNewSize(sizeIm, invH);
-	newSize = sizeIm;
+	newSize = computeNewSize(sizeIm, invH);
 	imCoords = ones(newSize(1), newSize(2), 3);
 
 	
@@ -12,7 +11,7 @@ function [imwarped] = warpImage(im,H)
 	for y = 1:newSize(1)
 		for x = 1:newSize(2)
 
-			p = [x; y; 1];
+			p = [x; y-100; 1];
 			origp = invH * p;
 			origp = origp / origp(3);
 
@@ -23,12 +22,10 @@ function [imwarped] = warpImage(im,H)
 	end
 
 
-	r = interp2(1:newSize(2), 1:newSize(1), im(:,:,1), imCoords(:,:,1), imCoords(:,:,2));
-	g = interp2(1:newSize(2), 1:newSize(1), im(:,:,2), imCoords(:,:,1), imCoords(:,:,2));
-	b = interp2(1:newSize(2), 1:newSize(1), im(:,:,3), imCoords(:,:,1), imCoords(:,:,2));
+	r = interp2(1:sizeIm(2), 1:sizeIm(1), im(:,:,1), imCoords(:,:,1), imCoords(:,:,2));
 
 
-	imwarped = cat(3, r, g, b);
+	imwarped = cat(3, r, r, r);
 end
 
 
@@ -43,8 +40,8 @@ function [newSize] = computeNewSize(sizeIm,invH)
 	botRight = invH * [sizeIm(1); sizeIm(2); 1];
 	botRight = botRight / botRight(3);
 
-	maxHeight = max(topLeft(2), topRight(2)) - min(botLeft(2), botRight(2));
-	maxwidth = max(topRight(1), botRight(1)) - min(botLeft(1), topLeft(1));
+	maxHeight = round(max(topLeft(2), topRight(2)) - min(botLeft(2), botRight(2)));
+	maxwidth = round(max(topRight(1), botRight(1)) - min(botLeft(1), topLeft(1)));
 
 
 	newSize = [maxwidth, maxHeight];
