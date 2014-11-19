@@ -13,16 +13,18 @@ im2_pts = [381,132;
 					 554,463;
 					 672,391];
 
-H = computeH(im1_pts,im2_pts);
-imwarped = warpImage(im2,H);
+%H = computeH(im1_pts,im2_pts);
+%warpOut = warpImage(im2,H);
 
-
-size(imwarped)
-imshow(imwarped);
+%imwarped = warpOut{1};
+%xOff = warpOut(2);
+%yOff = warpOut(3);
 
 
 % how large overall image should be
-%offset = [im1_pts(1,:) - im2_pts(1,:), 0];
-%combinedImage = combineImage(im1, im2, offset);
+xOff = 0;
+yOff = 0;
+offset = [im1_pts(1,:) - im2_pts(1,:), 0];
+combinedImage = combineImage(im1, im2, offset, xOff, yOff);
 
-%imshow(combinedImage);
+imshow(combinedImage);

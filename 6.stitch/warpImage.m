@@ -24,6 +24,7 @@ function [imwarped] = warpImage(im,H)
 	newSize = computeNewSize(sizeIm, H);
 	imCoords = zeros(newSize(1), newSize(2), 3);
 
+	% get coordinates
 	for y = 1:newSize(1)
 		for x = 1:newSize(2)
 
@@ -31,6 +32,7 @@ function [imwarped] = warpImage(im,H)
 			origp = invH * p;
 			origp = origp / origp(3);
 
+			% offsets
 			origp(2) = origp(2) + newSize(4);
 			origp(1) = origp(1) + newSize(3);
 
@@ -47,7 +49,7 @@ function [imwarped] = warpImage(im,H)
 	g = interp2(1:sizeIm(2), 1:sizeIm(1), im(:,:,2), imCoords(:,:,1), imCoords(:,:,2));
 	b = interp2(1:sizeIm(2), 1:sizeIm(1), im(:,:,3), imCoords(:,:,1), imCoords(:,:,2));
 
-	imwarped = cat(3, r, g, b);
+	imwarped = {cat(3, r, g, b), newSize(3), newSize(4)};
 end
 
 
@@ -65,9 +67,6 @@ function [newSize] = computeNewSize(sizeIm,H)
 
 	cornersY = [topLeft(2), topRight(2), botLeft(2), botRight(2)];
 	cornersX = [topLeft(1), topRight(1), botLeft(1), botRight(1)];
-
-
-	sprintf('%4.f',cornersY)
 
 	maxHeight = round(max(cornersY) - min(cornersY));
 	maxwidth = round(max(cornersX) - min(cornersX));
