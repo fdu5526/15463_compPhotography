@@ -1,5 +1,4 @@
 function [imwarped] = warpImage(im,H)
-	
 	invH = inv(H);
 	sizeIm = size(im);
 
@@ -33,8 +32,8 @@ function [imwarped] = warpImage(im,H)
 			origp = origp / origp(3);
 
 			% offsets
-			origp(2) = origp(2) + newSize(4);
-			origp(1) = origp(1) + newSize(3);
+			origp(2) = origp(2);
+			origp(1) = origp(1);
 
 			if(sizeIm(1) >= origp(2) & origp(2) >= 1 & sizeIm(2) >= origp(1) & origp(1) >= 1)
 				imCoords(y, x, :) = origp;
