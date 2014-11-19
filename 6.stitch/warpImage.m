@@ -20,7 +20,6 @@ function [imwarped] = warpImage(im,H)
 	im = [imNew; extraRow];
 
 	% compute transformed size
-	origSizeIm = sizeIm;
 	sizeIm = size(im);
 	newSize = computeNewSize(sizeIm, H);
 	imCoords = zeros(newSize(1), newSize(2), 3);
@@ -32,8 +31,8 @@ function [imwarped] = warpImage(im,H)
 			origp = invH * p;
 			origp = origp / origp(3);
 
-			origp(2) = origp(2);
-			origp(1) = origp(1);
+			origp(2) = origp(2) + newSize(4);
+			origp(1) = origp(1) + newSize(3);
 
 			if(sizeIm(1) >= origp(2) & origp(2) >= 1 & sizeIm(2) >= origp(1) & origp(1) >= 1)
 				imCoords(y, x, :) = origp;
@@ -68,8 +67,10 @@ function [newSize] = computeNewSize(sizeIm,H)
 	cornersX = [topLeft(1), topRight(1), botLeft(1), botRight(1)];
 
 
+	sprintf('%4.f',cornersY)
+
 	maxHeight = round(max(cornersY) - min(cornersY));
 	maxwidth = round(max(cornersX) - min(cornersX));
 
-	newSize = [maxHeight, maxwidth];
+	newSize = [maxHeight, maxwidth, min(cornersX), min(cornersY)];
 end
