@@ -21,10 +21,13 @@ im2_pts = [381,132;
 %yOff = warpOut(3);
 
 
+imwarped = im2double(imread('temp.PNG'));
+
+
 % how large overall image should be
 xOff = 0;
 yOff = 0;
 offset = [im1_pts(1,:) - im2_pts(1,:), 0];
-combinedImage = combineImage(im1, im2, offset, xOff, yOff);
+combinedImage = combineImage(im1, imwarped, offset, xOff, yOff);
 
 imshow(combinedImage);
