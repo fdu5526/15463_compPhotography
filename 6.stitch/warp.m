@@ -8,7 +8,7 @@ im1_pts = [528,166;
 					 848,404
 					];
 
-im2_pts = [318,132;
+im2_pts = [381,132;
 					 151,76;
 					 99,551;
 					 554,463;
@@ -18,6 +18,8 @@ im2_pts = [318,132;
 H = computeH(im1_pts,im2_pts);
 imwarped = warpImage(im2,H);
 
+
+size(imwarped)
 imshow(imwarped);
 
 
