@@ -1,6 +1,6 @@
 function [done] = warp()
 
-	data = loadOut();
+	data = loadRoom();
 	im1 = data{1};
 	im2 = data{2};
 	im1_pts = data{3};
@@ -12,8 +12,11 @@ function [done] = warp()
 
 	combinedImage = combineImage(im1, imwarped);
 
-	imwrite(combinedImage, 'output/out.JPG');
+	imwrite(combinedImage, 'output/room.JPG');
 	done = 0;
+
+
+
 end
 
 % for library
@@ -24,15 +27,13 @@ function [data] = loadLibrary()
 						 317,135;
 						 295,580;
 						 724,485;
-						 880,123;
-						 992,120];
+						 880,123];
 
 	im2_pts = [381,132;
 						 151,76;
 						 99,551;
 						 554,463;
-						 481,137;
-						 568,133];
+						 481,137];
 	data = {im1, im2, im1_pts, im2_pts};
 end
 
