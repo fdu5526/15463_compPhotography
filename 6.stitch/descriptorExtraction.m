@@ -19,8 +19,13 @@ function[output] = descriptorExtraction(x, y, im)
 		% rescale to 8x8
 		patch3 = imresize(patch2, 0.2);
 
-		descriptors{i} = patch3;
+		% normalize
+		m = mean2(patch3);
+		s = std2(patch3);
+		patch4 = (patch3 - m)/s;
 
+		% add it
+		descriptors{i} = patch4;
 	end
 
 	output = descriptors;
