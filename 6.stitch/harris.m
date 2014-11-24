@@ -30,11 +30,3 @@ Rnm = R.*(R == Rmax);  % supress non-max
 
 % extract all interest points
 [y,x,v] = find(Rnm);
-
-% show 'em
-imagesc(im);
-colormap(gray);
-hold on;
-plot(x,y,'r.');
-hold off;
-

@@ -3,26 +3,47 @@ function [done] = warp()
 	data = loadRoom();
 	im1 = data{1};
 	im2 = data{2};
-	im1_pts = data{3};
-	im2_pts = data{4};
+	[hx1,hy1,hv1] = harris(im1);
+	[x1,y1] = suppression(hx1, hy1, hv1);
 
+	showHarris(x1, y1, im1);
+
+
+	%harris2 = suppression(harris(im2));
+
+
+
+%{
 	H = computeH(im1_pts,im2_pts);
 	warpOut = warpImage(im2,H);
 	imwarped = warpOut{1};
 
 	combinedImage = combineImage(im1, imwarped);
 
-	imwrite(combinedImage, 'output/room.JPG');
+	%imshow(combinedImage, 'output/room.jpg');
+	imshow(combinedImage);
 	done = 0;
-
+%}
 
 
 end
 
+
+
+% show harris coordinates on image
+function [outputs] = showHarris(x, y, im)
+	imagesc(im);
+	colormap(gray);
+	hold on;
+	plot(x,y,'r.');
+	hold off;
+end
+
+
 % for library
 function [data] = loadLibrary()
-	im1 = im2double(imread('images/lib1.JPG'));
-	im2 = im2double(imread('images/lib2.JPG'));
+	im1 = im2double(imread('images/lib1.jpg'));
+	im2 = im2double(imread('images/lib2.jpg'));
 	im1_pts = [528,166;
 						 317,135;
 						 295,580;
@@ -41,8 +62,8 @@ end
 
 % for room
 function [data] = loadRoom()
-	im1 = im2double(imread('images/room1.JPG'));
-	im2 = im2double(imread('images/room2.JPG'));
+	im1 = im2double(imread('images/room1.jpg'));
+	im2 = im2double(imread('images/room2.jpg'));
 	im1_pts = [553,408;
 						 566,221;
 						 724,206;
@@ -63,8 +84,8 @@ end
 
 % for outdoors
 function [data] = loadOut()
-	im1 = im2double(imread('images/out1.JPG'));
-	im2 = im2double(imread('images/out2.JPG'));
+	im1 = im2double(imread('images/out1.jpg'));
+	im2 = im2double(imread('images/out2.jpg'));
 	im1_pts = [498,193;
 						 515,310;
 						 651,321;
