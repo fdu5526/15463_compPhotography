@@ -3,13 +3,14 @@ function [done] = warp()
 	data = loadRoom();
 	im1 = data{1};
 	im2 = data{2};
+
 	[hx1,hy1,hv1] = harris(im1);
 	[x1,y1] = suppression(hx1, hy1, hv1);
+	descriptors1 = descriptorExtraction(x1,y1,im1);
+	imshow(descriptors1{1})
+	%[hx2,hy2,hv2] = harris(im2);
+	%[x2,y2] = suppression(hx2, hy2, hv2);
 
-	showHarris(x1, y1, im1);
-
-
-	%harris2 = suppression(harris(im2));
 
 
 
