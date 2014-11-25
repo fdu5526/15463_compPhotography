@@ -6,12 +6,13 @@ function [done] = warp()
 
 	[hx1,hy1,hv1] = harris(im1);
 	[x1,y1] = suppression(hx1, hy1, hv1);
-	descriptors1 = descriptorExtraction(x1,y1,im1);
+	d1 = descriptorExtraction(x1,y1,im1);
 
-	%[hx2,hy2,hv2] = harris(im2);
-	%[x2,y2] = suppression(hx2, hy2, hv2);
+	[hx2,hy2,hv2] = harris(im2);
+	[x2,y2] = suppression(hx2, hy2, hv2);
+	d2 = descriptorExtraction(x2,y2,im2);
 
-
+	H = computeH2(x1,y1,d1,x2,y2,d2);
 
 
 %{

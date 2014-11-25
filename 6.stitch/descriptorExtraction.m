@@ -2,7 +2,7 @@ function[output] = descriptorExtraction(x, y, im)
 
 	% set up gaussian filter
 	filterSize = round(size(im, 1) / 20);
-	filterSigma = round(size(im, 1) / 150);
+	filterSigma = round(size(im, 1) / 180);
 	g = fspecial('gaussian', [filterSize, filterSize], filterSigma);
 
 	descriptors = cell(size(x,1));
@@ -13,12 +13,12 @@ function[output] = descriptorExtraction(x, y, im)
 		yi = y(i);
 
 		% get 40x40, blur
-		patch = im((yi-19):(yi+20), (xi-19):(xi+20));
+		patch = im((yi-18):(yi+18), (xi-18):(xi+18));
 		patch2 = imfilter(patch, g, 'same');
 
 		% rescale to 8x8
 		patch3 = imresize(patch2, 0.2);
-
+		
 		% normalize
 		m = mean2(patch3);
 		s = std2(patch3);
