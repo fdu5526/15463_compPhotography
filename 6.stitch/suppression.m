@@ -9,7 +9,7 @@ function[fx, fy] = suppression(x, y, v)
 
 
 	% set number of points left over
-	N = 100; R = 50;
+	N = 100; R2 = 50;
 	nx = zeros(N, 1);
 	ny = zeros(N, 1);
 
@@ -25,13 +25,13 @@ function[fx, fy] = suppression(x, y, v)
 		% loop through larger points, see if they are close
 		for j = 1:(i-1)
 			xj = xSorted(j);
-			yj = ySorted(j);			
+			yj = ySorted(j);
 
 			dx = xi - xj;
 			dy = yi - yj;
 
 			% not local max
-			if(dx*dx + dy*dy < R)
+			if(dx*dx + dy*dy < R2)
 					isLocalMax = false;
 				break;
 			end

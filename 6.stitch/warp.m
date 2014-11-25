@@ -11,19 +11,7 @@ function [done] = warp()
 	[hx2,hy2,hv2] = harris(im2);
 	[x2,y2] = suppression(hx2, hy2, hv2);
 	d2 = descriptorExtraction(x2,y2,im2);
-
-	points = computeH2(x1,y1,d1,x2,y2,d2);
-	x1 = points{1}(:,1);
-	y1 = points{1}(:,2);
-	x2 = points{2}(:,1);
-	y2 = points{2}(:,2);
-
-	%showHarris(x1, y1, im1);
-	showHarris(x2, y2, im2);
 	
-	%y1 = points{1}(:,2);
-
-%{
 	% feature match, get homography
 	H = computeH2(x1,y1,d1,x2,y2,d2);
 
@@ -39,7 +27,7 @@ function [done] = warp()
 	%imshow(combinedImage, 'output/room.jpg');
 	imshow(combinedImage);
 	done = 0;
-%}
+
 
 
 end

@@ -3,7 +3,7 @@ function[output] = computeH2(X1, Y1, D1, X2, Y2, D2)
 	rng(1);
 	% set up me some parameters
 	threshold = 0.4;
-	ransacCount = 10000;
+	ransacCount = 100;
 
 	% get info, make data structure
 	numPoints = size(X1,1);
@@ -53,8 +53,6 @@ function[output] = computeH2(X1, Y1, D1, X2, Y2, D2)
 		i = i + 1;
 	end
 
-	% remove zeros
-	d1Tod2Match(d1Tod2Match == 0) = [];
 	numMatch = size(d1Tod2Match, 1);
 
 	% ransac, find homography
@@ -62,13 +60,14 @@ function[output] = computeH2(X1, Y1, D1, X2, Y2, D2)
 	bestH = 0;
 	bestMatchDist = 9000000000;
 
-	bestPoints = cell(2);
-
 	while(i <= ransacCount)
 
 		% get matches
 		index = randperm(numMatch);
 		matches = d1Tod2Match(index(1:4));
+		if(matches(1) == 0 | matches(2) == 0 | matches(3) == 0 | matches(4) == 0)
+			continue;
+		end
 
 		% get homography
 		p1 = [X1(index(1)),Y1(index(1));
@@ -86,6 +85,11 @@ function[output] = computeH2(X1, Y1, D1, X2, Y2, D2)
 		% compute how this homography does with all other points
 		dist = 0;
 		for j = 1:numMatch
+
+			if(d1Tod2Match(j) == 0)
+				continue;
+			end
+
 			x1 = X1(j); y1 = Y1(j);
 			x2 = X2(d1Tod2Match(j)); y2 = Y2(d1Tod2Match(j));
 
@@ -105,15 +109,11 @@ function[output] = computeH2(X1, Y1, D1, X2, Y2, D2)
 		if(dist < bestMatchDist)
 			bestH = H;
 			bestMatchDist = dist;
-
-
-			bestPoints{1} = p1;
-			bestPoints{2} = p2;
 		end
 
 		i = i + 1;
 	end
 	
 
-	output = bestPoints;
+	output = H;
 end
