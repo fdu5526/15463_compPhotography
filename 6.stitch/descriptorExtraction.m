@@ -13,7 +13,7 @@ function[output] = descriptorExtraction(x, y, im)
 		yi = y(i);
 
 		% get 40x40, blur
-		patch = im((yi-18):(yi+18), (xi-18):(xi+18));
+		patch = im((yi-17):(yi+17), (xi-17):(xi+17));
 		patch2 = imfilter(patch, g, 'same');
 
 		% rescale to 8x8

@@ -1,24 +1,22 @@
 function [done] = warp()
 
-	data = loadRoom();
+	data = loadLibrary();
 	im1 = data{1};
 	im2 = data{2};
 	im1_pts = data{3};
 	im2_pts = data{4};
 
 	% compute feature descriptors
-	%{
 	[hx1,hy1,hv1] = harris(im1);
 	[x1,y1] = suppression(hx1, hy1, hv1);
 	d1 = descriptorExtraction(x1,y1,im1);
 	[hx2,hy2,hv2] = harris(im2);
 	[x2,y2] = suppression(hx2, hy2, hv2);
 	d2 = descriptorExtraction(x2,y2,im2);
-	%}
 
 	% feature match, get homography
-	%H = computeH2(x1,y1,d1,x2,y2,d2);
-	H = computeH(im1_pts, im2_pts);
+	H = computeH2(x1,y1,d1,x2,y2,d2);
+	%H = computeH(im1_pts, im2_pts);
 
 	% warp right image
 	warpOut = warpImage(im2,H);
@@ -30,8 +28,8 @@ function [done] = warp()
 	% combine images
 	combinedImage = combineImage(im1, imwarped, nLeft);
 
-	%imshow(combinedImage, 'output/room.jpg');
-	imshow(combinedImage);
+	imwrite(combinedImage, 'output2/lib.jpg');
+	%imshow(combinedImage);
 	done = 0;
 
 

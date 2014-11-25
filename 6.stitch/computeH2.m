@@ -3,7 +3,7 @@ function[output] = computeH2(X1, Y1, D1, X2, Y2, D2)
 	rng(1);
 	% set up me some parameters
 	threshold = 0.4;
-	ransacCount = 100;
+	ransacCount = 1000;
 
 	% get info, make data structure
 	numPoints = size(X1,1);

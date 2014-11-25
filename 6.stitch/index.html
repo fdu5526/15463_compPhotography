@@ -1,0 +1,209 @@
+<!-- =============================================== -->
+<!-- =                                             = -->
+<!-- =                Keyners	                   = -->
+<!-- =                                             = -->
+<!-- =          http://keyners.com/	               = -->
+<!-- =============================================== -->
+
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+	
+	<!-- fonts from google -->
+	<link href='http://fonts.googleapis.com/css?family=Lato|Open+Sans' rel='stylesheet' type='text/css'>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Dave Yan - proj6</title>
+	<meta name="description" content="">
+	<meta name="author" content=" Made by Keyners">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- CSS
+  ================================================== -->
+  	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/skeleton.css">
+	<link rel="stylesheet" href="css/layout.css">
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+	<script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+	<script type="text/javascript">
+		$(document).ready(function() {
+				$("a[rel=example_group]").fancybox({
+				'transitionIn'		: 'none',
+				'transitionOut'		: 'none',
+				'titlePosition' 	: 'outside',
+				'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+					return '';
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+
+
+	<header>			
+		<div class='container'>
+			<div class='slogan'>
+				<div class='ten columns'>
+					<h1>Project 6</h1>
+						<h4>Dave Yan</h4>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<div class='container'>
+		<div class='fourteen columns'>
+			<h4>Overview</h4>
+			<div class='clear'></div>
+			<p>We aim to warp images to create mosaics.</p>
+		</div>
+
+		<div class='clear'></div>
+		<div class='clear'></div>
+		<div class='fourteen columns'>
+			<h4>Approach</h4>
+			<div class='clear'></div>
+			<p>We find common points in 2 images, and produce a homography from that. When then apply the homography on the image on the right, and combine the two to form a larger image.</p>
+		</div>
+
+		<div class='clear'></div>
+		<div class='clear'></div>
+		<div class='clear'></div>
+		<div class='clear'></div>
+	</div>
+
+	<div class='container'>
+		<h4>Library pictures</h4>
+			<div class='clear'></div>
+			<div class='seven columns'>
+				<p>2 Pictures taken in Unviversity of Washington's library</p>
+				<a rel="example_group" href='images/lib1.jpg'><img src='images/lib1.jpg' width=400></a>
+			</div>
+			<div class='seven columns'>
+				<p><br></p>
+				<a rel="example_group" href='images/lib2.jpg'><img src='images/lib2.jpg' width=400></a>
+			</div>
+
+			<div class='clear'></div>
+			<div class='seven columns'>
+			<p>After applying homography on image on the right </p>
+			
+				<a rel="example_group" href='output/libRH.jpg'><img src='output/libRH.jpg' width=400></a>
+			</div>
+
+			<div class='clear'></div>
+			<div class='seven columns'>
+			<p>Mosaic</p>
+				<a rel="example_group" href='output/lib.jpg'><img src='output/lib.jpg' width=600></a>
+			</div>
+		
+		<div class='clear'></div>
+		<div class='clear'></div>
+	</div>
+
+
+	<div class='container'>
+		<h4>Hotel Room Pictures</h4>
+			<div class='clear'></div>
+			<div class='seven columns'>
+				<p>2 Pictures taken in hotel in Seattle</p>
+				<a rel="example_group" href='images/room1.jpg'><img src='images/room1.jpg' width=400></a>
+			</div>
+			<div class='seven columns'>
+				<p><br></p>
+				<a rel="example_group" href='images/room2.jpg'><img src='images/room2.jpg' width=400></a>
+			</div>
+
+			<div class='clear'></div>
+			<div class='seven columns'>
+			<p>After applying homography on image on the right </p>
+			
+				<a rel="example_group" href='output/roomRH.jpg'><img src='output/roomRH.jpg' width=400></a>
+			</div>
+
+			<div class='clear'></div>
+			<div class='seven columns'>
+			<p>Mosaic</p>
+				<a rel="example_group" href='output/room.jpg'><img src='output/room.jpg' width=600></a>
+			</div>
+		
+		<div class='clear'></div>
+		<div class='clear'></div>
+	</div>
+
+
+	<div class='container'>
+		<h4>Outside City Pictures</h4>
+			<div class='clear'></div>
+			<div class='seven columns'>
+				<p>2 Pictures taken from hotel window in Seattle</p>
+				<a rel="example_group" href='images/out1.jpg'><img src='images/out1.jpg' width=400></a>
+			</div>
+			<div class='seven columns'>
+				<p><br></p>
+				<a rel="example_group" href='images/out2.jpg'><img src='images/out2.jpg' width=400></a>
+			</div>
+
+			<div class='clear'></div>
+			<div class='seven columns'>
+			<p>After applying homography on image on the right </p>
+			
+				<a rel="example_group" href='output/outRH.jpg'><img src='output/outRH.jpg' width=400></a>
+			</div>
+
+			<div class='clear'></div>
+			<div class='seven columns'>
+			<p>Mosaic</p>
+				<a rel="example_group" href='output/out.jpg'><img src='output/out.jpg' width=600></a>
+			</div>
+		
+		<div class='clear'></div>
+		<div class='clear'></div>
+
+
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+	<div class='clear'></div>
+
+	<script type="text/javascript">
+		var toper = $('a#top');
+
+
+		$(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+                toper.fadeIn( 200 );
+            } else {
+                toper.fadeOut( 200 );
+            }
+        });
+
+         toper.click(function(){
+        	$('html, body').animate({scrollTop:0}, 500);	        	
+        	return false;
+    	}); 
+	</script>
+</body>
+</html>
